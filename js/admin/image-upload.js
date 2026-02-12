@@ -41,10 +41,14 @@ const ImageUpload = {
     `;
 
     const removeBtn = preview.querySelector('.remove-preview-btn');
-    removeBtn.addEventListener('click', () => {
-      if (onRemove) onRemove();
-      preview.remove();
-    });
+    if (removeBtn) {
+      removeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (onRemove) onRemove();
+        preview.remove();
+      });
+    }
 
     return preview;
   }

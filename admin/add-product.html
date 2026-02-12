@@ -171,63 +171,87 @@
     if (!AdminAuth.init()) return;
 
     let uploadedImages = [];
-    const uploadArea = document.getElementById('image-upload-area');
-    const fileInput = document.getElementById('product-images');
-    const previewContainer = document.getElementById('image-preview-container');
 
-    // Click to upload
-    uploadArea.addEventListener('click', () => {
-      fileInput.click();
-    });
+    // Initialize after DOM is ready
+    function initImageUpload() {
+      const uploadArea = document.getElementById('image-upload-area');
+      const fileInput = document.getElementById('product-images');
+      const previewContainer = document.getElementById('image-preview-container');
 
-    // Drag and drop functionality
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      uploadArea.style.backgroundColor = '#f0f0f0';
-      uploadArea.style.borderColor = '#007bff';
-    });
+      if (!uploadArea || !fileInput || !previewContainer) {
+        console.error('Required upload elements not found');
+        return;
+      }
 
-    uploadArea.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      uploadArea.style.backgroundColor = '';
-      uploadArea.style.borderColor = '';
-    });
+      // Click to upload
+      uploadArea.addEventListener('click', () => {
+        fileInput.click();
+      });
 
-    uploadArea.addEventListener('drop', async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      uploadArea.style.backgroundColor = '';
-      uploadArea.style.borderColor = '';
+      // Drag and drop functionality
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.style.backgroundColor = '#f0f0f0';
+        uploadArea.style.borderColor = '#007bff';
+      });
 
-      const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
-      await processFiles(files);
-    });
+      uploadArea.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.style.backgroundColor = '';
+        uploadArea.style.borderColor = '';
+      });
 
-    // File input change
-    fileInput.addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files);
-      await processFiles(files);
-    });
+      uploadArea.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadArea.style.backgroundColor = '';
+        uploadArea.style.borderColor = '';
 
-    // Process files function
-    async function processFiles(files) {
-      for (const file of files) {
-        try {
-          const base64 = await ImageUpload.convertToBase64(file);
-          uploadedImages.push(base64);
+        const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+        await processFiles(files);
+      });
 
-          const preview = ImageUpload.createPreview(base64, () => {
-            const index = uploadedImages.indexOf(base64);
-            if (index > -1) uploadedImages.splice(index, 1);
-          });
+      // File input change
+      fileInput.addEventListener('change', async (e) => {
+        const files = Array.from(e.target.files);
+        await processFiles(files);
+      });
 
-          previewContainer.appendChild(preview);
-        } catch (error) {
-          Utils.showToast(error.message, 'error');
+      // Process files function
+      async function processFiles(files) {
+        if (files.length === 0) {
+          Utils.showToast('No images selected', 'error');
+          return;
+        }
+
+        for (const file of files) {
+          try {
+            console.log('Processing file:', file.name);
+            const base64 = await ImageUpload.convertToBase64(file);
+            uploadedImages.push(base64);
+
+            const preview = ImageUpload.createPreview(base64, () => {
+              const index = uploadedImages.indexOf(base64);
+              if (index > -1) uploadedImages.splice(index, 1);
+            });
+
+            previewContainer.appendChild(preview);
+            Utils.showToast(`Image "${file.name}" uploaded successfully`, 'success');
+          } catch (error) {
+            console.error('Error processing file:', error);
+            Utils.showToast(error.message, 'error');
+          }
         }
       }
+    }
+
+    // Run after DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initImageUpload);
+    } else {
+      initImageUpload();
     }
 
     document.getElementById('add-product-form').addEventListener('submit', (e) => {
