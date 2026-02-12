@@ -168,11 +168,17 @@
   <script src="../js/admin/image-upload.js"></script>
   <script src="../js/admin/admin-products.js"></script>
   <script>
-    if (!AdminAuth.init()) return;
-
     let uploadedImages = [];
 
     // Initialize after DOM is ready
+    function initializePage() {
+      if (!AdminAuth.init()) {
+        return;
+      }
+
+      initImageUpload();
+    }
+
     function initImageUpload() {
       const uploadArea = document.getElementById('image-upload-area');
       const fileInput = document.getElementById('product-images');
@@ -249,9 +255,9 @@
 
     // Run after DOM is loaded
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initImageUpload);
+      document.addEventListener('DOMContentLoaded', initializePage);
     } else {
-      initImageUpload();
+      initializePage();
     }
 
     document.getElementById('add-product-form').addEventListener('submit', (e) => {
