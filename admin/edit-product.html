@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product - Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <h2>FashionHub Admin</h2>
+      </div>
+      <nav class="admin-nav">
+        <a href="index.html"><span>📊</span> Dashboard</a>
+        <a href="products.html" class="active"><span>🛍️</span> Products</a>
+        <a href="orders.html"><span>📦</span> Orders</a>
+        <a href="analytics.html"><span>📈</span> Analytics</a>
+        <a href="settings.html"><span>⚙️</span> Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1>Edit Product</h1>
+        <div class="admin-user">
+          <span id="admin-name">Admin</span>
+          <button class="btn btn-secondary btn-sm" id="admin-logout">Logout</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div class="card">
+          <form id="edit-product-form">
+            <input type="hidden" id="product-id">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label>Product Name *</label>
+                <input type="text" class="form-control" id="product-name" required>
+              </div>
+              <div class="form-group">
+                <label>SKU *</label>
+                <input type="text" class="form-control" id="product-sku" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Category *</label>
+                <select class="form-control" id="product-category" required>
+                  <option value="dresses">Dresses</option>
+                  <option value="tops">Tops</option>
+                  <option value="bottoms">Bottoms</option>
+                  <option value="outerwear">Outerwear</option>
+                  <option value="accessories">Accessories</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Price *</label>
+                <input type="number" class="form-control" id="product-price" step="0.01" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Description *</label>
+              <textarea class="form-control" id="product-description" rows="4" required></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Stock Quantity *</label>
+                <input type="number" class="form-control" id="product-stock" required>
+              </div>
+              <div class="form-group">
+                <label>In Stock</label>
+                <select class="form-control" id="product-instock">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Available Sizes *</label>
+              <div class="checkbox-group" id="sizes-container">
+                <label class="checkbox-label">
+                  <input type="checkbox" value="XS" class="size-checkbox"> XS
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="S" class="size-checkbox"> S
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="M" class="size-checkbox"> M
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="L" class="size-checkbox"> L
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="XL" class="size-checkbox"> XL
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="XXL" class="size-checkbox"> XXL
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="One Size" class="size-checkbox"> One Size
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Available Colors *</label>
+              <div class="checkbox-group" id="colors-container">
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Black" class="color-checkbox"> Black
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="White" class="color-checkbox"> White
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Red" class="color-checkbox"> Red
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Blue" class="color-checkbox"> Blue
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Navy" class="color-checkbox"> Navy
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Pink" class="color-checkbox"> Pink
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Beige" class="color-checkbox"> Beige
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Gray" class="color-checkbox"> Gray
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" value="Brown" class="color-checkbox"> Brown
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Product Images (current)</label>
+              <div id="current-images" class="image-preview-container"></div>
+            </div>
+
+            <div class="form-group">
+              <label>Add New Images</label>
+              <div class="image-upload-area" id="image-upload-area">
+                <p>Click to upload or drag and drop</p>
+                <p style="font-size: 12px; color: #666;">PNG, JPG, WEBP (Max 5MB each)</p>
+                <input type="file" id="product-images" accept="image/*" multiple style="display: none;">
+              </div>
+              <div id="new-images" class="image-preview-container"></div>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Update Product</button>
+              <a href="products.html" class="btn btn-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/admin/admin-app.js"></script>
+  <script src="../js/admin/image-upload.js"></script>
+  <script src="../js/admin/admin-products.js"></script>
+  <script>
+    if (!AdminAuth.init()) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+    let newImages = [];
+
+    if (!productId) {
+      Utils.showToast('Product ID not found', 'error');
+      window.location.href = 'products.html';
+    }
+
+    async function loadProduct() {
+      await Products.loadProducts();
+      const product = Products.getProductById(productId);
+
+      if (!product) {
+        Utils.showToast('Product not found', 'error');
+        window.location.href = 'products.html';
+        return;
+      }
+
+      document.getElementById('product-id').value = product.id;
+      document.getElementById('product-name').value = product.name;
+      document.getElementById('product-sku').value = product.sku || '';
+      document.getElementById('product-category').value = product.category;
+      document.getElementById('product-price').value = product.price;
+      document.getElementById('product-description').value = product.description;
+      document.getElementById('product-stock').value = product.stock || 100;
+      document.getElementById('product-instock').value = product.inStock ? 'true' : 'false';
+
+      product.sizes.forEach(size => {
+        const checkbox = document.querySelector(`.size-checkbox[value="${size}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+
+      product.colors.forEach(color => {
+        const checkbox = document.querySelector(`.color-checkbox[value="${color}"]`);
+        if (checkbox) checkbox.checked = true;
+      });
+
+      const currentImagesContainer = document.getElementById('current-images');
+      product.images.forEach(img => {
+        const preview = document.createElement('div');
+        preview.className = 'image-preview';
+        preview.innerHTML = `<img src="${img}" alt="Product image">`;
+        currentImagesContainer.appendChild(preview);
+      });
+    }
+
+    loadProduct();
+
+    document.getElementById('image-upload-area').addEventListener('click', () => {
+      document.getElementById('product-images').click();
+    });
+
+    document.getElementById('product-images').addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      const previewContainer = document.getElementById('new-images');
+
+      for (const file of files) {
+        try {
+          const base64 = await ImageUpload.convertToBase64(file);
+          newImages.push(base64);
+
+          const preview = ImageUpload.createPreview(base64, () => {
+            const index = newImages.indexOf(base64);
+            if (index > -1) newImages.splice(index, 1);
+          });
+
+          previewContainer.appendChild(preview);
+        } catch (error) {
+          Utils.showToast(error.message, 'error');
+        }
+      }
+    });
+
+    document.getElementById('edit-product-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const sizes = Array.from(document.querySelectorAll('.size-checkbox:checked')).map(cb => cb.value);
+      const colors = Array.from(document.querySelectorAll('.color-checkbox:checked')).map(cb => cb.value);
+
+      if (sizes.length === 0) {
+        Utils.showToast('Please select at least one size', 'error');
+        return;
+      }
+
+      if (colors.length === 0) {
+        Utils.showToast('Please select at least one color', 'error');
+        return;
+      }
+
+      const formData = {
+        name: document.getElementById('product-name').value,
+        sku: document.getElementById('product-sku').value,
+        category: document.getElementById('product-category').value,
+        price: document.getElementById('product-price').value,
+        description: document.getElementById('product-description').value,
+        stock: document.getElementById('product-stock').value,
+        inStock: document.getElementById('product-instock').value === 'true',
+        sizes,
+        colors
+      };
+
+      if (newImages.length > 0) {
+        formData.image = newImages[0];
+        formData.images = newImages;
+      }
+
+      AdminProducts.handleEditProduct(productId, formData);
+    });
+  </script>
+</body>
+</html>

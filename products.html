@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Women's Fashion Store</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/products.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <div class="container">
+        Free shipping on orders over $50
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo">FashionHub</a>
+          <nav>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="products.html">Shop</a></li>
+              <li><a href="#" data-user-name>Welcome, User</a></li>
+            </ul>
+          </nav>
+          <div class="header-icons">
+            <a href="wishlist.html" class="icon-link">
+              ♥
+              <span class="badge" data-wishlist-count>0</span>
+            </a>
+            <a href="cart.html" class="icon-link">
+              🛒
+              <span class="badge" data-cart-count>0</span>
+            </a>
+            <a href="login.html" class="icon-link" data-auth-link="login">Login</a>
+            <a href="#" class="icon-link" data-auth-link="logout" style="display: none;">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="container">
+      <h1>Shop All Products</h1>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="container">
+      <div class="products-page">
+        <aside class="filters-sidebar">
+          <h3>Filters</h3>
+          <span id="active-filter-count"></span>
+          
+          <div class="filter-section">
+            <h4>Search</h4>
+            <input type="text" id="search-input" placeholder="Search products..." class="search-box">
+          </div>
+
+          <div class="filter-section">
+            <h4>Category</h4>
+            <div class="filter-option">
+              <input type="checkbox" id="cat-dresses" value="dresses" data-filter="category">
+              <label for="cat-dresses">Dresses</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="cat-tops" value="tops" data-filter="category">
+              <label for="cat-tops">Tops</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="cat-bottoms" value="bottoms" data-filter="category">
+              <label for="cat-bottoms">Bottoms</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="cat-outerwear" value="outerwear" data-filter="category">
+              <label for="cat-outerwear">Outerwear</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="cat-accessories" value="accessories" data-filter="category">
+              <label for="cat-accessories">Accessories</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Size</h4>
+            <div class="filter-option">
+              <input type="checkbox" id="size-xs" value="XS" data-filter="size">
+              <label for="size-xs">XS</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-s" value="S" data-filter="size">
+              <label for="size-s">S</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-m" value="M" data-filter="size">
+              <label for="size-m">M</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-l" value="L" data-filter="size">
+              <label for="size-l">L</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="size-xl" value="XL" data-filter="size">
+              <label for="size-xl">XL</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Color</h4>
+            <div class="filter-option">
+              <input type="checkbox" id="color-black" value="Black" data-filter="color">
+              <label for="color-black">Black</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-white" value="White" data-filter="color">
+              <label for="color-white">White</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-blue" value="Blue" data-filter="color">
+              <label for="color-blue">Blue</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-red" value="Red" data-filter="color">
+              <label for="color-red">Red</label>
+            </div>
+            <div class="filter-option">
+              <input type="checkbox" id="color-pink" value="Pink" data-filter="color">
+              <label for="color-pink">Pink</label>
+            </div>
+          </div>
+
+          <div class="filter-section">
+            <h4>Price Range</h4>
+            <div class="price-range">
+              <div class="price-inputs">
+                <input type="range" id="price-min" min="0" max="200" value="0">
+                <input type="range" id="price-max" min="0" max="200" value="200">
+              </div>
+              <div class="price-display">
+                <span id="price-min-display">$0</span>
+                <span id="price-max-display">$200</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="clear-filters-btn" id="clear-filters">Clear All Filters</button>
+        </aside>
+
+        <main class="products-main">
+          <div class="products-header">
+            <div class="search-box">
+              <input type="text" id="search-input" placeholder="Search products...">
+            </div>
+            <div class="sort-options">
+              <label for="sort-select">Sort by:</label>
+              <select id="sort-select">
+                <option value="default">Default</option>
+                <option value="price-low-high">Price: Low to High</option>
+                <option value="price-high-low">Price: High to Low</option>
+                <option value="name-az">Name: A-Z</option>
+                <option value="name-za">Name: Z-A</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="product-grid"></div>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>Your destination for the latest women's fashion trends. Quality clothing at affordable prices.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Shop</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="wishlist.html">Wishlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Customer Service</h3>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact</h3>
+          <p>Email: support@fashionhub.com</p>
+          <p>Phone: (555) 123-4567</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 FashionHub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/wishlist.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

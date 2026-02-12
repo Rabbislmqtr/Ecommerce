@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics - Admin</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="admin-container">
+    <aside class="admin-sidebar">
+      <div class="admin-logo">
+        <h2>FashionHub Admin</h2>
+      </div>
+      <nav class="admin-nav">
+        <a href="index.html"><span>📊</span> Dashboard</a>
+        <a href="products.html"><span>🛍️</span> Products</a>
+        <a href="orders.html"><span>📦</span> Orders</a>
+        <a href="analytics.html" class="active"><span>📈</span> Analytics</a>
+        <a href="settings.html"><span>⚙️</span> Settings</a>
+      </nav>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <h1>Analytics & Reports</h1>
+        <div class="admin-user">
+          <span id="admin-name">Admin</span>
+          <button class="btn btn-secondary btn-sm" id="admin-logout">Logout</button>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div id="dashboard-stats" class="stat-grid"></div>
+
+        <div class="charts-grid">
+          <div class="chart-container">
+            <h3>Revenue Trend (Last 7 Days)</h3>
+            <canvas id="revenue-chart"></canvas>
+          </div>
+          <div class="chart-container">
+            <h3>Sales by Category</h3>
+            <canvas id="category-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>All Orders</h3>
+            <button class="btn btn-secondary" onclick="AdminAnalytics.exportToCSV()">Export to CSV</button>
+          </div>
+          <div id="recent-orders" style="margin-top: 20px;"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/admin/admin-app.js"></script>
+  <script src="../js/admin/admin-analytics.js"></script>
+  <script>
+    if (AdminAuth.init()) {
+      AdminAnalytics.init();
+    }
+  </script>
+</body>
+</html>
