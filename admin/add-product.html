@@ -171,15 +171,48 @@
     if (!AdminAuth.init()) return;
 
     let uploadedImages = [];
+    const uploadArea = document.getElementById('image-upload-area');
+    const fileInput = document.getElementById('product-images');
+    const previewContainer = document.getElementById('image-preview-container');
 
-    document.getElementById('image-upload-area').addEventListener('click', () => {
-      document.getElementById('product-images').click();
+    // Click to upload
+    uploadArea.addEventListener('click', () => {
+      fileInput.click();
     });
 
-    document.getElementById('product-images').addEventListener('change', async (e) => {
-      const files = Array.from(e.target.files);
-      const previewContainer = document.getElementById('image-preview-container');
+    // Drag and drop functionality
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadArea.style.backgroundColor = '#f0f0f0';
+      uploadArea.style.borderColor = '#007bff';
+    });
 
+    uploadArea.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadArea.style.backgroundColor = '';
+      uploadArea.style.borderColor = '';
+    });
+
+    uploadArea.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      uploadArea.style.backgroundColor = '';
+      uploadArea.style.borderColor = '';
+
+      const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+      await processFiles(files);
+    });
+
+    // File input change
+    fileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      await processFiles(files);
+    });
+
+    // Process files function
+    async function processFiles(files) {
       for (const file of files) {
         try {
           const base64 = await ImageUpload.convertToBase64(file);
@@ -195,7 +228,7 @@
           Utils.showToast(error.message, 'error');
         }
       }
-    });
+    }
 
     document.getElementById('add-product-form').addEventListener('submit', (e) => {
       e.preventDefault();
