@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize Currency first
+  if (typeof Currency !== 'undefined') {
+    Currency.init();
+  }
+  
   Auth.init();
   Cart.init();
   Wishlist.init();

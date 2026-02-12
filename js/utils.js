@@ -1,5 +1,9 @@
 const Utils = {
   formatCurrency(amount) {
+    // Use Currency module if available, otherwise fall back to USD
+    if (typeof Currency !== 'undefined') {
+      return Currency.formatPrice(amount);
+    }
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD'

@@ -37,7 +37,7 @@ const AdminSettings = {
     document.getElementById('shipping-fee').value = this.settings.shippingFee;
     document.getElementById('free-shipping-threshold').value = this.settings.freeShippingThreshold;
     document.getElementById('tax-rate').value = (this.settings.taxRate * 100).toFixed(0);
-    document.getElementById('currency-symbol').value = this.settings.currencySymbol;
+    document.getElementById('default-currency').value = this.settings.currency;
     document.getElementById('hero-title').value = this.settings.heroTitle;
     document.getElementById('hero-description').value = this.settings.heroDescription;
     document.getElementById('featured-count').value = this.settings.featuredProductsCount;
@@ -90,7 +90,15 @@ const AdminSettings = {
     this.settings.shippingFee = parseFloat(document.getElementById('shipping-fee').value);
     this.settings.freeShippingThreshold = parseFloat(document.getElementById('free-shipping-threshold').value);
     this.settings.taxRate = parseFloat(document.getElementById('tax-rate').value) / 100;
-    this.settings.currencySymbol = document.getElementById('currency-symbol').value;
+    
+    const selectedCurrency = document.getElementById('default-currency').value;
+    this.settings.currency = selectedCurrency;
+    
+    // Update Currency module
+    if (typeof Currency !== 'undefined') {
+      Currency.setCurrency(selectedCurrency);
+    }
+    
     this.settings.heroTitle = document.getElementById('hero-title').value;
     this.settings.heroDescription = document.getElementById('hero-description').value;
     this.settings.featuredProductsCount = parseInt(document.getElementById('featured-count').value);

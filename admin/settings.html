@@ -83,8 +83,12 @@
                 <input type="number" class="form-control" id="tax-rate" step="1" required>
               </div>
               <div class="form-group">
-                <label>Currency Symbol *</label>
-                <input type="text" class="form-control" id="currency-symbol" required>
+                <label>Default Currency *</label>
+                <select class="form-control" id="default-currency" required>
+                  <option value="USD">USD - US Dollar ($)</option>
+                  <option value="BDT">BDT - Bangladeshi Taka (৳)</option>
+                  <option value="INR">INR - Indian Rupee (₹)</option>
+                </select>
               </div>
             </div>
 
@@ -115,6 +119,7 @@
   </div>
 
   <script src="../js/utils.js"></script>
+  <script src="../js/currency.js"></script>
   <script src="../js/auth.js"></script>
   <script src="../js/admin/admin-app.js"></script>
   <script src="../js/admin/image-upload.js"></script>
